@@ -1,0 +1,3 @@
+/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug/CMakeFiles/TrabalhoPratico.dir
+/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug/CMakeFiles/edit_cache.dir

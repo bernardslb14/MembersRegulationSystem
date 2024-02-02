@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/main.c
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+ctype.h
+-
+variaveis.h
+/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/variaveis.h
+
+/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/variaveis.h
+
