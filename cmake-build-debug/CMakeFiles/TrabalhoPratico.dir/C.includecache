@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/listas.c
-stdio.h
--
-string.h
--
-variaveis.h
-/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/variaveis.h
-
 /cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/main.c
 stdio.h
 -

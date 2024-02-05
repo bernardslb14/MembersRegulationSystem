@@ -14,6 +14,7 @@ extern void print_results(struct quotas **lista);
 #define MAXBUFFER 128
 #define MAXNUMERO 6
 #define QUOTAS_MES 5
+#define YEAR 2020
 
 struct socio *default_list;
 struct nomes *names_list;
@@ -127,7 +128,7 @@ int check_digits(char *string, int len){
 int verify_date(char* digitos, int aux_dia, int aux_mes, char tipo, int aux){
     int numero = atoi(digitos);
 
-    if(check_digits(digitos, (int) strlen(digitos)) == 0)
+    if(check_digits(digitos, (int)strlen(digitos)) == 0)
         return -1;
     if(tipo=='d'){
         if(numero>31 || numero<1){
@@ -155,10 +156,10 @@ int verify_date(char* digitos, int aux_dia, int aux_mes, char tipo, int aux){
                 return 6;
             }
         }
-        if((aux==1) && (numero<2020)){
+        if((aux==1) && (numero<YEAR)){
             return 4;
         }
-        if((aux==1) && (numero>2020)){
+        if((aux==1) && (numero>YEAR)){
             return 7;
         }
     }
@@ -187,32 +188,32 @@ double check_money(char *string, int len){
 
     clean_string(unidades, len);
     clean_string(decimas, len);
-    for(int i=0;i<len;i++){
-        if(string[i]=='.'){
-            ind=i;
-            unidades[aux]='\0';
+    for(int i=0; i<len; i++){
+        if(string[i] == '.'){
+            ind = i;
+            unidades[aux] = '\0';
             break;
         }
         else{
-            unidades[aux]=string[i];
+            unidades[aux] = string[i];
             aux++;
         }
     }
     aux=0;
-    if(ind==(int)strlen(string)-1){
+    if(ind == (int)strlen(string)-1){
         return 0;
     }
-    for(int i=ind+1;i<len;i++){
-        decimas[aux]=string[i];
+    for(int i=ind+1; i<len; i++){
+        decimas[aux] = string[i];
         aux++;
     }
-    decimas[aux]='\0';
+    decimas[aux] = '\0';
 
-    if(check_digits(decimas, aux) == 0 || check_digits(unidades, strlen(unidades)) == 0){
+    if(check_digits(decimas, aux) == 0 || check_digits(unidades, (int)strlen(unidades)) == 0){
         return 0;
     }
     else{
-        numero=strtof(string,NULL);
+        numero = strtof(string,NULL);
         return numero;
     }
 }
@@ -260,7 +261,7 @@ void read_raw_file(){
                     indice = 0;
                     flag = 0;
                     clean_string(numero, MAXNUMERO);
-                    for(int i=0;i <(int)strlen(param); i++){
+                    for(int i=0; i<(int)strlen(param); i++){
                         if((i == (int)strlen(param)-1) || (param[i]==' ')){
                             if(i == (int)strlen(param)-1){
                                 numero[indice] = param[i];
@@ -322,7 +323,7 @@ void read_raw_file(){
                                 erro=1;
                                 break;
                             }
-                            memset(numero,0,strlen(numero));
+                            memset(numero, 0, strlen(numero));
                             indice=0;
                             flag++;
                         }
@@ -337,7 +338,7 @@ void read_raw_file(){
                     }
                     break;
                 case 3:
-                    if(check_digits(param, (int) strlen(param)) == 0){
+                    if(check_digits(param, (int)strlen(param)) == 0){
                         printf("Linha nº %d rejeitada!\nMotivo: não foram fornecidos somente digitos para o NIF.\n\n",linhas);
                         erro=1;
                         break;
@@ -350,13 +351,13 @@ void read_raw_file(){
                     aux->nif = atoi(param);
                     break;
                 case 4:
-                    if(check_digits(param, (int) strlen(param)) == 0){
+                    if(check_digits(param, (int)strlen(param)) == 0){
                         printf("Linha nº %d rejeitada!\nMotivo: não foram fornecidos somente digitos para o telefone.\n\n",linhas);
                         erro = 1;
                         break;
                     }
-                    if(strlen(param) != 9){
-                        printf("Linha nº %d rejeitada!\nMotivo: foram dados %d digitos para o telefone, quando o indicado é serem 9.\n\n",linhas,strlen(param));
+                    if((int)strlen(param) != 9){
+                        printf("Linha nº %d rejeitada!\nMotivo: foram dados %d digitos para o telefone, quando o indicado é serem 9.\n\n",linhas,(int)strlen(param));
                         erro = 1;
                         break;
                     }
@@ -438,7 +439,7 @@ void read_raw_file(){
                                 erro=1;
                                 break;
                             }
-                            memset(numero,0,strlen(numero));
+                            memset(numero, 0, (int)strlen(numero));
                             indice=0;
                             flag++;
                         }
@@ -453,7 +454,7 @@ void read_raw_file(){
                     }
                     break;
                 case 6:
-                    quotas = check_money(param, (int) strlen(param));
+                    quotas = check_money(param, (int)strlen(param));
                     if(quotas == 0){
                         printf("Linha nº %d rejeitada!\nMotivo: no montante disponibilizado para as quotas foram passados caracteres inválidos.\n\n",linhas);
                         erro = 1;
