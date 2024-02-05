@@ -13,7 +13,7 @@
 **Programming Languague:** C
 
 **Concepts:**
-- Text + Bynary Files;
+- Text Files + Binary Files;
 - Structs;
 - Pointers;
 - Linked Lists;
