@@ -1,4 +1,4 @@
-# MembersRegulationSystem
+# RegulationSystem
 
 **Collaborators:** João Leite
 
@@ -6,7 +6,7 @@
 <br/>
 ㅤ
 
-**Project Title:** Members Regulation System
+**Project Title:** Quotas Regulation System
 
 **Brief Description:** 
 - A dynamic program designed to provide effective member quota control over a year;
