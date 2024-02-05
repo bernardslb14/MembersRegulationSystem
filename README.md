@@ -7,8 +7,10 @@
 - By reading data from files, organizing it into linked lists, and calculating compliance with regulated quotas, this application streamlines the process;
 
 **Collaborators:** João Leite
-<br>
-<br>
+
+
+
+
 **Programming Languague:** C
 
 **Concepts:**
