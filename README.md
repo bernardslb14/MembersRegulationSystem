@@ -1,4 +1,4 @@
-# RegulationSystem
+# QuotasRegulationSystem
 
 **Collaborators:** João Leite
 
