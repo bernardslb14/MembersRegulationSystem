@@ -11,12 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2d187fe-419a-4238-a960-c9fe5699fac9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/TrabalhoPratico.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/TrabalhoPratico.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
-    </list>
+    <list default="true" id="a2d187fe-419a-4238-a960-c9fe5699fac9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,7 +88,7 @@
       <workItem from="1592602370413" duration="2854000" />
       <workItem from="1706891550089" duration="10471000" />
       <workItem from="1707136498767" duration="1231000" />
-      <workItem from="1707146250086" duration="638000" />
+      <workItem from="1707146250086" duration="1500000" />
     </task>
     <servers />
   </component>
