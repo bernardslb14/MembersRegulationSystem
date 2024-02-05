@@ -1,58 +1,32 @@
-/*
-FICHEIRO TEXTO
-
--> Estrutura de cada linha: Identificador|Data de Nascimento|NIF|Telefone|Data de entrada no clube|Quota|
--> Exemplo: António Santos|29 2 1992|248606060|964751826|1 1 2020|70.25|
-
-
-NOTAS
-
--> O identificador de uma determinada linha trata-se de algo que caracteriza um determinado utilizador, pelo que tanto pode ser o nome próprio como um código qualquer (note-se que se trata de algo único pelo que se aparecerem duas ou mais linhas com o mesmo identificador, a partir da 2º serão todas rejeitadas)
--> Considere-se que o clube de montanhismo foi aberto no 1º dia de 2020, pelo que se forem apresentadas datas anteriores a esta aquando do momento de inscrição então essa linha será rejeitada
--> Sobre as quotas, podem ser disponibilizados montantes em double (com casas decimais), podendo o dinheiro que sobra ser utilizado para pagar em anos/meses seguintes
--> Os restantes dias do primeiro mês de entrada no clube são gratuitos. Imaginemos que uma pessoa ingressou na data 1/1/2020, ou 15/1/2020, ou ainda 30/1/2020, então os dias restantes do mês de Janeiro que faltam até Fevereiro não são pagos
--> Considere-se que a quota anual são 60€ para assim termos 5€ por mês
--> Quando pedimos ao utilizador o nome dos ficheiros de saída não é necessário colocar a extensão '.txt', dado que esta é acrescentada depois através da função strcat()
-
-
-RESUMO DO PROGRAMA
-
--> Primeiramente inicializa-se todas as listas que vão ser precisas a NULL
--> Leem-se todas as linhas do ficheiro 'config.txt' e aí faz-se a filtragem das mesmas através de mecanismos referente à programação defensiva (os dados das linhas que cumprem todos os requisitos são guardados numa estrutura que depois é acrescentada ao ficheiro binário criado - designado por 'binario.txt')
--> Depois lê-se o ficheiro binário 'binario.txt' e aí sim é que inserimos todos os dados numa lista duplamente ligada que podemos dizer que é a lista mais global do programa dado que contém todos os dados referentes a todas as pessoas corretamente inscritas no clube
--> De seguida faz-se a análise das quotas e separam-se os dois tipos de membros, ou seja, os que têm as quotas em dia que são guardados numa lista em especifico, e os que têm as quotas em atraso são guardados numa outra lista (cada elemento destas listas é apenas composto pelo identificador da pessoa e pelo montante em dívida/em excesso)
--> Por fim, é pedido ao utilizador que insira o nome de dois ficheiros de saída (um que será a listagem dos membros com as quotas em dia e um segundo que será a listagem dos membros com as quotas em atraso) e depois o programa termina
-*/
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include "variaveis.h"
 
-extern void inicializa_lista();
-extern void insere_lista(struct socio **lista, struct socio **aux);
-extern void imprime_lista(struct socio **lista);
-extern void insere_lista_2(struct nomes **lista, struct nomes **aux);
-extern void insere_lista_3(struct quotas **lista, struct quotas **aux);
-extern void imprime_lista_2(struct quotas **lista);
+extern void initialize_linked_lists();
+extern void insert_member(struct socio **lista, struct socio **aux);
+extern void print_default_information(struct socio **lista);
+extern void insert_name(struct nomes **lista, struct nomes **aux);
+extern void insert_to_payments_lists(struct quotas **lista, struct quotas **aux);
+extern void print_results(struct quotas **lista);
 
 #define MAXBUFFER 128
 #define MAXNUMERO 6
 #define QUOTAS_MES 5
 
-struct socio *lista;
-struct nomes *lista_nomes;
-struct quotas *em_dia;
-struct quotas *em_atraso;
+struct socio *default_list;
+struct nomes *names_list;
+struct quotas *updated_payments;
+struct quotas *outdated_payments;
 
-void limpa_string(char string[], int len){
+void clean_string(char *string, int len){
     for(int i=0;i<len;i++){
         string[i]='\0';
     }
 }
 
-void escrever_ficheiros(){
+void write_to_files(){
     FILE *fp;
     struct quotas *aux;
     char nome_ficheiro[32];
@@ -62,19 +36,19 @@ void escrever_ficheiros(){
     scanf("%s",nome_ficheiro);
     strcat(nome_ficheiro,extensao);
     fp=fopen(nome_ficheiro,"w");
-    aux=em_dia;
+    aux=updated_payments;
     while(aux!=NULL){
         fprintf(fp,"%s\t+%.2f€\n",aux->nome,aux->sobras);
         aux=aux->next;
     }
     fclose(fp);
-    limpa_string(nome_ficheiro,32);
+    clean_string(nome_ficheiro, 32);
 
     printf("Nome do ficheiro que contém as informações das quotas em atraso: ");
     scanf("%s",nome_ficheiro);
     strcat(nome_ficheiro,extensao);
     fp=fopen(nome_ficheiro,"w");
-    aux=em_atraso;
+    aux=outdated_payments;
     while(aux!=NULL){
         fprintf(fp,"%s\t%.2f€\n",aux->nome,aux->sobras);
         aux=aux->next;
@@ -82,49 +56,49 @@ void escrever_ficheiros(){
     fclose(fp);
 }
 
-void averiguar_quotas(){
+void check_payments(){
     struct socio *aux;
     struct quotas *auxiliar;
     int meses;
     int preco;
 
-    aux=lista;
-    while(aux!=NULL){
-        meses=12-aux->clube.mes;
-        preco=meses*QUOTAS_MES;
+    aux = default_list;
+    while(aux != NULL){
+        meses = 12 - aux->clube.mes;
+        preco = meses * QUOTAS_MES;
 
         auxiliar = (struct quotas *) malloc(sizeof(struct quotas));
         strcpy(auxiliar->nome,aux->nome);
-        auxiliar->sobras=aux->quotas-preco;
-        if(preco>aux->quotas){
-            insere_lista_3(&em_atraso,&auxiliar);
+        auxiliar->sobras = aux->quotas-preco;
+        if(preco > aux->quotas){
+            insert_to_payments_lists(&outdated_payments, &auxiliar);
         }
         else{
-            insere_lista_3(&em_dia,&auxiliar);
+            insert_to_payments_lists(&updated_payments, &auxiliar);
         }
 
-        aux=aux->next;
+        aux = aux->next;
     }
 }
 
-void ler_binario(){
+void read_binary_file(){
     FILE *fp;
     struct socio *aux;
 
-    fp=fopen("binario.txt","r");
+    fp = fopen("binario.txt","r");
 
     while(1){
         aux = (struct socio *) malloc(sizeof(struct socio));
         if(fread(aux, sizeof(struct socio), 1, fp)!=1){
             break;
         }
-        insere_lista(&lista,&aux);
+        insert_member(&default_list, &aux);
     }
 
     fclose(fp);
 }
 
-void escrever_binario(struct socio **aux, int *pvazio){
+void write_binary_file(struct socio **aux, int *pvazio){
     FILE *fp;
 
     if((*pvazio)==0){
@@ -137,7 +111,7 @@ void escrever_binario(struct socio **aux, int *pvazio){
     fclose(fp);
 }
 
-int verifica_digitos(char string[], int len){
+int check_digits(char *string, int len){
     int final=1;
 
     for(int i=0;i<len;i++){
@@ -150,10 +124,10 @@ int verifica_digitos(char string[], int len){
     return final;
 }
 
-int verifica_data(char* digitos, int aux_dia, int aux_mes, char tipo, int aux){
-    int numero=atoi(digitos);
+int verify_date(char* digitos, int aux_dia, int aux_mes, char tipo, int aux){
+    int numero = atoi(digitos);
 
-    if(verifica_digitos(digitos,strlen(digitos))==0)
+    if(check_digits(digitos, (int) strlen(digitos)) == 0)
         return -1;
     if(tipo=='d'){
         if(numero>31 || numero<1){
@@ -164,7 +138,7 @@ int verifica_data(char* digitos, int aux_dia, int aux_mes, char tipo, int aux){
         if((numero>12) || (numero<1)){
             return 2;
         }
-        if(((numero%2==0) && (0<numero<8)) || ((numero%2!=0) && (8<=numero<=12))){
+        if(((numero%2==0) && (numero>0 && numero<8)) || ((numero%2!=0) && (numero>=8 && numero <= 12))){
             if(numero>30){
                 return 3;
             }
@@ -191,10 +165,10 @@ int verifica_data(char* digitos, int aux_dia, int aux_mes, char tipo, int aux){
     return 0;
 }
 
-int verifica_identificador(char string[]){
+int verify_identifier(char *string){
     struct nomes *aux;
 
-    aux=lista_nomes;
+    aux=names_list;
 
     while(aux!=NULL){
         if(strcmp(string,aux->nome)==0){
@@ -205,14 +179,14 @@ int verifica_identificador(char string[]){
     return 0;
 }
 
-double verifica_dinheiro(char string[], int len){
+double check_money(char *string, int len){
     double numero;
     int ind=0, aux=0;
     char unidades[len];
     char decimas[len];
 
-    limpa_string(unidades,len);
-    limpa_string(decimas,len);
+    clean_string(unidades, len);
+    clean_string(decimas, len);
     for(int i=0;i<len;i++){
         if(string[i]=='.'){
             ind=i;
@@ -225,7 +199,7 @@ double verifica_dinheiro(char string[], int len){
         }
     }
     aux=0;
-    if(ind==strlen(string)-1){
+    if(ind==(int)strlen(string)-1){
         return 0;
     }
     for(int i=ind+1;i<len;i++){
@@ -234,7 +208,7 @@ double verifica_dinheiro(char string[], int len){
     }
     decimas[aux]='\0';
 
-    if(verifica_digitos(decimas,aux)==0 || verifica_digitos(unidades,strlen(unidades))==0){
+    if(check_digits(decimas, aux) == 0 || check_digits(unidades, strlen(unidades)) == 0){
         return 0;
     }
     else{
@@ -243,103 +217,105 @@ double verifica_dinheiro(char string[], int len){
     }
 }
 
-void ler_ficheiro(){
+void read_raw_file(){
     FILE *fp;
-    char buffer[MAXBUFFER]; //variável onde se armazena uma linha completa
-    char *parametro; //variavel para guardar um parametro em especifico de uma linha
-    int contador; //contador dos parametros presentes em cada linha
-    int linhas=0; //contador das linhas do ficheiro
+    char buffer[MAXBUFFER];
+    char *param;
+    int count;  //contador dos parametros presentes em cada linha
+    int linhas = 0;   //contador das linhas do ficheiro
     char numero[MAXNUMERO]; //variável auxiliar que guarda cada número referente a uma parte de uma data
-    int indice, flag, erro, var; //variáveis auxiliares para tratar da parte do armazenamento das datas
+    int indice, flag, erro, var;    //variáveis auxiliares para tratar da parte do armazenamento das datas
     struct socio *aux;
-    int pvazio=0; //inteiro a utilizar aquando na escrita no ficheiro binário (verifica se é a primeira vez que estamos a escrever ou não)
-    double quotas; //variável para guardar o valor devolvido pelas função 'verifica_dinheiro'
+    int pvazio;   //inteiro a utilizar aquando na escrita no ficheiro binário (verifica se é a primeira vez que estamos a escrever ou não)
+    double quotas;  //variável para guardar o valor devolvido pelas função 'check_money'
     struct nomes *auxiliar;
 
-    fp=fopen("config.txt","r");
+    linhas = 0;
+    pvazio = 0;
+    fp = fopen("config.txt","r");
     while(fgets(buffer, MAXBUFFER, fp)) {
         linhas++;
-        contador=0;
-        parametro=strtok(buffer,"|");
+        count = 0;
+        param = strtok(buffer,"|");
         aux = (struct socio *) malloc(sizeof(struct socio));
         erro=0;
-        while(parametro!=NULL){
-            contador++;
-            switch(contador){
+        while(param != NULL){
+            count++;
+            switch(count){
                 case 1:
-                    if(verifica_identificador(parametro)==1){
+                    if(verify_identifier(param) == 1){
                         printf("Linha nº %d rejeitada!\nMotivo: já existe no sistema um utilizador com o mesmo identificador!\n\n",linhas);
                         erro=1;
                         break;
                     }
                     else{
-                        strcpy(aux->nome,parametro);
+                        strcpy(aux->nome,param);
 
                         auxiliar = (struct nomes *) malloc(sizeof(struct nomes));
                         strcpy(auxiliar->nome,aux->nome);
-                        insere_lista_2(&lista_nomes,&auxiliar);
+                        insert_name(&names_list, &auxiliar);
                     }
                     break;
                 case 2:
-                    indice=0;
-                    flag=0;
-                    limpa_string(numero,MAXNUMERO);
-                    for(int i=0;i<strlen(parametro);i++){
-                        if((i==strlen(parametro)-1) || (parametro[i]==' ')){
-                            if(i==strlen(parametro)-1){
-                                numero[indice]=parametro[i];
+                    indice = 0;
+                    flag = 0;
+                    clean_string(numero, MAXNUMERO);
+                    for(int i=0;i <(int)strlen(param); i++){
+                        if((i == (int)strlen(param)-1) || (param[i]==' ')){
+                            if(i == (int)strlen(param)-1){
+                                numero[indice] = param[i];
                             }
-                            if(flag==0){
-                                var=verifica_data(numero,0,0,'d',0);
-                                if(var==-1){
+                            if(flag == 0){
+                                var = verify_date(numero, 0, 0, 'd', 0);
+                                if(var == -1){
                                     printf("Linha nº %d rejeitada!\nMotivo: não foram fornecidos somente digitos para o dia de nascimento.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                else if(var==1){
+                                else if(var == 1){
                                     printf("Linha nº %d rejeitada!\nMotivo: o número fornecido para o dia de nascimento não faz sentido.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                aux->nascimento.dia=atoi(numero);
+                                aux->nascimento.dia = atoi(numero);
                             }
-                            else if(flag==1){
-                                var=verifica_data(numero,0,0,'m',0);
-                                if(var==-1){
+                            else if(flag == 1){
+                                var= verify_date(numero, 0, 0, 'm', 0);
+                                if(var == -1){
                                     printf("Linha nº %d rejeitada!\nMotivo: não foram fornecidos somente digitos para o mês de nascimento.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                else if(var==2){
+                                else if(var == 2){
                                     printf("Linha nº %d rejeitada!\nMotivo: o número fornecido para o mês de nascimento não faz sentido.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                else if(var==3){
+                                else if(var == 3){
                                     printf("Linha nº %d rejeitada!\nMotivo: incoerência entre o mês e o dia referenciado.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                aux->nascimento.mes=atoi(numero);
+                                aux->nascimento.mes = atoi(numero);
                             }
-                            else if(flag==2){
-                                var=verifica_data(numero,aux->nascimento.dia,aux->nascimento.mes,'a',0);
-                                if(var==-1){
+                            else if(flag == 2){
+                                var = verify_date(numero, aux->nascimento.dia, aux->nascimento.mes, 'a', 0);
+                                if(var == -1){
                                     printf("Linha nº %d rejeitada!\nMotivo: não foram fornecidos somente digitos para o ano de nascimento.\n\n",linhas);
-                                    erro=1;
+                                    erro = 1;
                                     break;
                                 }
-                                else if(var==5){
+                                else if(var == 5){
                                     printf("Linha nº %d rejeitada!\nMotivo: na data de nascimento foi fornecido o mês de fevereiro e um ano bissexto, pelo que o dia fornecido apenas pode ir até 29.\n\n",linhas);
-                                    erro=1;
+                                    erro = 1;
                                     break;
                                 }
-                                else if(var==6){
+                                else if(var == 6){
                                     printf("Linha nº %d rejeitada!\nMotivo: na data de nascimento foi fornecido o mês fevereiro e um ano não bissexto, pelo que o dia dado apenas pode ir até 28.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                aux->nascimento.ano=atoi(numero);
+                                aux->nascimento.ano = atoi(numero);
                             }
                             else{
                                 printf("Linha nº %d rejeitada!\nMotivo: na data de nascimento foram passados mais parâmetros do que o esperado.\n\n",linhas);
@@ -351,7 +327,7 @@ void ler_ficheiro(){
                             flag++;
                         }
                         else{
-                            numero[indice]=parametro[i];
+                            numero[indice] = param[i];
                             indice++;
                         }
                     }
@@ -361,101 +337,101 @@ void ler_ficheiro(){
                     }
                     break;
                 case 3:
-                    if(verifica_digitos(parametro,strlen(parametro))==0){
+                    if(check_digits(param, (int) strlen(param)) == 0){
                         printf("Linha nº %d rejeitada!\nMotivo: não foram fornecidos somente digitos para o NIF.\n\n",linhas);
                         erro=1;
                         break;
                     }
-                    if(strlen(parametro)!=9){
-                        printf("Linha nº %d rejeitada!\nMotivo: foram dados %d digitos para o NIF, quando o indicado é serem 9.\n\n",linhas,strlen(parametro));
+                    if((int)strlen(param) != 9){
+                        printf("Linha nº %d rejeitada!\nMotivo: foram dados %d digitos para o NIF, quando o indicado é serem 9.\n\n",linhas,strlen(param));
                         erro=1;
                         break;
                     }
-                    aux->nif=atoi(parametro);
+                    aux->nif = atoi(param);
                     break;
                 case 4:
-                    if(verifica_digitos(parametro,strlen(parametro))==0){
+                    if(check_digits(param, (int) strlen(param)) == 0){
                         printf("Linha nº %d rejeitada!\nMotivo: não foram fornecidos somente digitos para o telefone.\n\n",linhas);
-                        erro=1;
+                        erro = 1;
                         break;
                     }
-                    if(strlen(parametro)!=9){
-                        printf("Linha nº %d rejeitada!\nMotivo: foram dados %d digitos para o telefone, quando o indicado é serem 9.\n\n",linhas,strlen(parametro));
-                        erro=1;
+                    if(strlen(param) != 9){
+                        printf("Linha nº %d rejeitada!\nMotivo: foram dados %d digitos para o telefone, quando o indicado é serem 9.\n\n",linhas,strlen(param));
+                        erro = 1;
                         break;
                     }
-                    aux->telefone=atoi(parametro);
+                    aux->telefone = atoi(param);
                     break;
                 case 5:
-                    indice=0;
-                    flag=0;
-                    limpa_string(numero,MAXNUMERO);
-                    for(int i=0;i<strlen(parametro);i++){
-                        if((i==strlen(parametro)-1) || (parametro[i]==' ')){
-                            if(i==strlen(parametro)-1){
-                                numero[indice]=parametro[i];
+                    indice = 0;
+                    flag = 0;
+                    clean_string(numero, MAXNUMERO);
+                    for(int i=0; i<(int)strlen(param); i++){
+                        if((i == (int)strlen(param)-1) || (param[i]==' ')){
+                            if(i == (int)strlen(param)-1){
+                                numero[indice] = param[i];
                             }
                             if(flag==0){
-                                var=verifica_data(numero,0,0,'d',0);
-                                if(var==-1){
+                                var = verify_date(numero, 0, 0, 'd', 0);
+                                if(var == -1){
                                     printf("Linha nº %d rejeitada!\nMotivo: não foram fornecidos somente digitos para o dia de entrada no clube.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                else if(var==1){
+                                else if(var == 1){
                                     printf("Linha nº %d rejeitada!\nMotivo: o número fornecido para o dia de entrada no clube não faz sentido.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                aux->clube.dia=atoi(numero);
+                                aux->clube.dia = atoi(numero);
                             }
                             else if(flag==1){
-                                var=verifica_data(numero,0,0,'m',0);
-                                if(var==-1){
+                                var = verify_date(numero, 0, 0, 'm', 0);
+                                if(var == -1){
                                     printf("Linha nº %d rejeitada!\nMotivo: não foram fornecidos somente digitos para o mês de entrada no clube.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                else if(var==2){
+                                else if(var == 2){
                                     printf("Linha nº %d rejeitada!\nMotivo: o número fornecido para o mês de entrada no clube não faz sentido.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                else if(var==3){
+                                else if(var == 3){
                                     printf("Linha nº %d rejeitada!\nMotivo: incoerência entre o mês e o dia referenciado.\n\n",linhas);
                                     erro=1;
                                     break;
                                 }
-                                aux->clube.mes=atoi(numero);
+                                aux->clube.mes = atoi(numero);
                             }
-                            else if(flag==2){
-                                var=verifica_data(numero,aux->clube.dia,aux->clube.mes,'a',1);
-                                if(var==-1){
+                            else if(flag == 2){
+                                var = verify_date(numero, aux->clube.dia, aux->clube.mes, 'a', 1);
+                                if(var == -1){
                                     printf("Linha nº %d rejeitada!\nMotivo: não foram somente fornecidos digitos para o ano de entrada no clube.\n\n",linhas);
-                                    erro=1;
+                                    erro = 1;
                                     break;
                                 }
-                                if(var==4){
+                                if(var == 4){
                                     printf("Linha nº %d rejeitada!\nMotivo: o clube de montanhismo abriu no 1º dia de 2020, pelo que a data de entrada não é válida.\n\n",linhas);
-                                    erro=1;
+                                    erro = 1;
                                     break;
                                 }
-                                if(var==5){
+                                if(var == 5){
                                     printf("Linha nº %d rejeitada!\nMotivo: na data de entrada no clube foi fornecido o mês de fevereiro e um ano bissexto, pelo que o dia fornecido apenas pode ir até 29.\n\n",linhas);
-                                    erro=1;
+                                    erro = 1;
                                     break;
                                 }
-                                if(var==6){
+                                if(var == 6){
                                         printf("Linha nº %d rejeitada!\nMotivo: na data de entrada no clube foi fornecido o mês fevereiro e um ano não bissexto, pelo que o dia dado apenas pode ir até 28.\n\n",linhas);
-                                        erro=1;
+                                        erro = 1;
                                         break;
                                 }
-                                if(var==7){
+                                if(var == 7){
                                     printf("Linha nº %d rejeitada!\nMotivo: pretende-se averiguar as quotas do clube de montanhismo relativo ao ano de 2020, pelo que inscrições posteriores ao ano anteriormente referido não são contabilizadas.\n\n",linhas);
-                                    erro=1;
+                                    erro = 1;
                                     break;
                                 }
-                                aux->clube.ano=atoi(numero);
+                                aux->clube.ano = atoi(numero);
                             }
                             else{
                                 printf("Linha nº %d rejeitada!\nMotivo: na data de entrada no clube foram passados mais parâmetros do que o esperado.\n\n",linhas);
@@ -467,7 +443,7 @@ void ler_ficheiro(){
                             flag++;
                         }
                         else{
-                            numero[indice]=parametro[i];
+                            numero[indice] = param[i];
                             indice++;
                         }
                     }
@@ -477,26 +453,26 @@ void ler_ficheiro(){
                     }
                     break;
                 case 6:
-                    quotas=verifica_dinheiro(parametro,strlen(parametro));
-                    if(quotas==0){
+                    quotas = check_money(param, (int) strlen(param));
+                    if(quotas == 0){
                         printf("Linha nº %d rejeitada!\nMotivo: no montante disponibilizado para as quotas foram passados caracteres inválidos.\n\n",linhas);
-                        erro=1;
+                        erro = 1;
                         break;
                     }
-                    aux->quotas=quotas;
+                    aux->quotas = quotas;
                     break;
                 default:
                     break;
             }
-            if(erro==1){
+            if(erro == 1){
                 break;
             }
-            parametro=strtok(NULL,"|");
+            param = strtok(NULL,"|");
         }
 
-        if(erro==0){
-            if(contador==7)
-                escrever_binario(&aux,&pvazio);
+        if(erro == 0){
+            if(count == 7)
+                write_binary_file(&aux, &pvazio);
             else
                 printf("Linha nº %d rejeitada!\nMotivo: Número incorreto de parâmetros.\n\n",linhas);
         }
@@ -507,17 +483,18 @@ void ler_ficheiro(){
 
 
 int main() {
-    inicializa_lista(&lista,&lista_nomes,&em_dia,&em_atraso);
-    ler_ficheiro();
-    ler_binario();
-    //imprime_lista(&lista);
+    initialize_linked_lists(&default_list, &names_list, &updated_payments, &outdated_payments);
 
-    averiguar_quotas();
+    read_raw_file();
+    read_binary_file();
+    //print_default_information(&default_list);
+
+    check_payments();
     //printf("\nSócios com as quotas em dia:\n");
-    //imprime_lista_2(&em_dia);
+    //print_results(&updated_payments);
     //printf("\nSócios com as quotas em atraso:\n");
-    //imprime_lista_2(&em_atraso);
-    escrever_ficheiros();
+    //print_results(&outdated_payments);
 
+    write_to_files();
     return 0;
 }

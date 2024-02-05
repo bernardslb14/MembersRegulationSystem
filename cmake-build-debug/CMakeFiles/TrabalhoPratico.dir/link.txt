@@ -1,1 +1,1 @@
-/usr/bin/cc -Wall -Wextra -g  -Wl,--enable-auto-import CMakeFiles/TrabalhoPratico.dir/main.c.o CMakeFiles/TrabalhoPratico.dir/listas.c.o  -o TrabalhoPratico.exe -Wl,--out-implib,libTrabalhoPratico.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
+/usr/bin/gcc.exe -Wall -Wextra -g  -Wl,--enable-auto-import CMakeFiles/TrabalhoPratico.dir/main.c.o CMakeFiles/TrabalhoPratico.dir/listas.c.o  -o TrabalhoPratico.exe -Wl,--out-implib,libTrabalhoPratico.dll.a -Wl,--major-image-version,0,--minor-image-version,0 

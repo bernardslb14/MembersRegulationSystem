@@ -1,0 +1,23 @@
+FICHEIRO TEXTO
+
+-> Estrutura de cada linha: Identificador|Data de Nascimento|NIF|Telefone|Data de entrada no clube|Quota|
+-> Exemplo: António Santos|29 2 1992|248606060|964751826|1 1 2020|70.25|
+
+
+NOTAS
+
+-> O identificador de uma determinada linha trata-se de algo que caracteriza um determinado utilizador, pelo que tanto pode ser o nome próprio como um código qualquer (note-se que se trata de algo único pelo que se aparecerem duas ou mais linhas com o mesmo identificador, a partir da 2º serão todas rejeitadas)
+-> Considere-se que o clube de montanhismo foi aberto no 1º dia de 2020, pelo que se forem apresentadas datas anteriores a esta aquando do momento de inscrição então essa linha será rejeitada
+-> Sobre as quotas, podem ser disponibilizados montantes em double (com casas decimais), podendo o dinheiro que sobra ser utilizado para pagar em anos/meses seguintes
+-> Os restantes dias do primeiro mês de entrada no clube são gratuitos. Imaginemos que uma pessoa ingressou na data 1/1/2020, ou 15/1/2020, ou ainda 30/1/2020, então os dias restantes do mês de Janeiro que faltam até Fevereiro não são pagos
+-> Considere-se que a quota anual são 60€ para assim termos 5€ por mês
+-> Quando pedimos ao utilizador o nome dos ficheiros de saída não é necessário colocar a extensão '.txt', dado que esta é acrescentada depois através da função strcat()
+
+
+RESUMO DO PROGRAMA
+
+-> Primeiramente inicializa-se todas as listas que vão ser precisas a NULL
+-> Leem-se todas as linhas do ficheiro 'config.txt' e aí faz-se a filtragem das mesmas através de mecanismos referente à programação defensiva (os dados das linhas que cumprem todos os requisitos são guardados numa estrutura que depois é acrescentada ao ficheiro binário criado - designado por 'binario.txt')
+-> Depois lê-se o ficheiro binário 'binario.txt' e aí sim é que inserimos todos os dados numa lista duplamente ligada que podemos dizer que é a lista mais global do programa dado que contém todos os dados referentes a todas as pessoas corretamente inscritas no clube
+-> De seguida faz-se a análise das quotas e separam-se os dois tipos de membros, ou seja, os que têm as quotas em dia que são guardados numa lista em especifico, e os que têm as quotas em atraso são guardados numa outra lista (cada elemento destas listas é apenas composto pelo identificador da pessoa e pelo montante em dívida/em excesso)
+-> Por fim, é pedido ao utilizador que insira o nome de dois ficheiros de saída (um que será a listagem dos membros com as quotas em dia e um segundo que será a listagem dos membros com as quotas em atraso) e depois o programa termina

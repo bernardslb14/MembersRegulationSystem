@@ -3,33 +3,33 @@
 #include "variaveis.h"
 
 
-void inicializa_lista(struct socio **lista, struct nomes **lista_nomes, struct quotas **em_dia, struct quotas **em_atraso){
-    *lista=NULL;
-    *lista_nomes=NULL;
-    *em_dia=NULL;
-    *em_atraso=NULL;
+void initialize_linked_lists(struct socio **list1, struct nomes **list2, struct quotas **list3, struct quotas **list4){
+    *list1 = NULL;
+    *list2 = NULL;
+    *list3 = NULL;
+    *list4 = NULL;
 }
 
-void imprime_lista(struct socio **lista){
+void print_default_information(struct socio **list){
     struct socio *aux;
 
-    aux=*lista;
-    while(aux!=NULL){
+    aux = *list;
+    while(aux != NULL){
         printf("Nome: %s\nData de Nascimento: %d/%d/%d\nNIF: %d\nTelefone: %d\nData de entrada no clube: %d/%d/%d\nMontante para as quotas: %.2lf€\n\n",aux->nome,aux->nascimento.dia,aux->nascimento.mes,aux->nascimento.ano,aux->nif,aux->telefone,aux->clube.dia,aux->clube.mes,aux->clube.ano,aux->quotas);
         aux=aux->next;
     }
 }
-void imprime_lista_2(struct quotas **lista){
+void print_results(struct quotas **list){
     struct quotas *aux;
 
-    aux=*lista;
-    while(aux!=NULL){
+    aux = *list;
+    while(aux != NULL){
         printf("Nome: %s\nDividendos: %.2f\n",aux->nome,aux->sobras);
         aux=aux->next;
     }
 }
 
-void insere_lista(struct socio **lista, struct socio **aux){
+void insert_member(struct socio **lista, struct socio **aux){
     struct socio *anterior, *prox;
 
     if((*lista == NULL) || (strcmp((*aux)->nome,(*lista)->nome)<0)){ //inserir quando a lista está vazia ou inserir no inicio
@@ -56,7 +56,7 @@ void insere_lista(struct socio **lista, struct socio **aux){
     }
 }
 
-void insere_lista_2(struct nomes **lista, struct nomes **aux){
+void insert_name(struct nomes **lista, struct nomes **aux){
     struct nomes *anterior, *prox;
 
     if((*lista == NULL) || (strcmp((*aux)->nome,(*lista)->nome)<0)){ //inserir quando a lista está vazia ou inserir no inicio
@@ -76,7 +76,7 @@ void insere_lista_2(struct nomes **lista, struct nomes **aux){
     }
 }
 
-void insere_lista_3(struct quotas **lista, struct quotas **aux){
+void insert_to_payments_lists(struct quotas **lista, struct quotas **aux){
     struct quotas *anterior, *prox;
 
     if((*lista == NULL) || (strcmp((*aux)->nome,(*lista)->nome)<0)){ //inserir quando a lista está vazia ou inserir no inicio

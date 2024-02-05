@@ -8,82 +8,82 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug"/>
+				<Option working_dir="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug"/>
+				<Option working_dir="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="TrabalhoPratico">
-				<Option output="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug/TrabalhoPratico.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/include"/>
-					<Add directory="/usr/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../lib/../include/w32api"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoPratico"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="TrabalhoPratico/fast">
-				<Option output="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug/TrabalhoPratico.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/include"/>
-					<Add directory="/usr/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../lib/../include/w32api"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoPratico/fast"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/cmake-build-debug"/>
+				<Option working_dir="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/HP/Desktop/Faculdade/Ano\ 2/Semestre\ 2/PPP/TrabalhoPratico/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TrabalhoPratico">
+				<Option output="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/TrabalhoPratico.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/10/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/10/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoPratico"/>
+					<CompileFile command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TrabalhoPratico/fast">
+				<Option output="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/TrabalhoPratico.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/10/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/10/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoPratico/fast"/>
+					<CompileFile command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j16 -f &quot;/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/listas.c">
+		<Unit filename="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/listas.c">
 			<Option target="TrabalhoPratico"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/main.c">
+		<Unit filename="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/main.c">
 			<Option target="TrabalhoPratico"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/variaveis.h">
+		<Unit filename="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/variaveis.h">
 			<Option target="TrabalhoPratico"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/HP/Desktop/Faculdade/Ano 2/Semestre 2/PPP/TrabalhoPratico/CMakeLists.txt">
+		<Unit filename="/cygdrive/c/Users/14joa/Github/C/PartnersRegulationSystem/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
