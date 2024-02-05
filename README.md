@@ -4,16 +4,16 @@
 
 **Year:** 2020
 ㅤ
-ㅤ
 
+ㅤ
 **Project Title:** Members Regulation System
 
 **Brief Description:** 
 - Dynamic C program designed for efficient members quota regulation over a year;
 - This program streamlines the annual payment process by grabbing data from files, arranging it into linked lists, and determining compliance with specified thresholds.
-ㅤ
-ㅤ
 
+
+ㅤ
 **Programming Languague:** C
 
 **Concepts:**
