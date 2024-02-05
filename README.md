@@ -12,8 +12,8 @@
 - Dynamic C program designed for efficient members quota regulation over a year;
 - This program streamlines the annual payment process by grabbing data from files, arranging it into linked lists, and determining compliance with specified thresholds.
 ㅤ
-
 ㅤ
+
 **Programming Languague:** C
 
 **Concepts:**
