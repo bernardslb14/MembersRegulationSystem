@@ -17,7 +17,7 @@
 **Programming Languague:** C
 
 **Concepts:**
-- Text Files + Binary Files;
+- Text Files & Binary Files;
 - Structs;
 - Pointers;
 - Linked Lists;
